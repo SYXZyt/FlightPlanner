@@ -1,0 +1,11 @@
+﻿;Put all airport data in here for the planner to recognise them
+;Format is ICAO - name - Latitude - Longitude - Shortest Runway Length - Country
+;Use semi-colon to separate each category
+KXTA;Homey (Area 51);37.233333;-115.808333;11938;Nevada-US
+KLSV;Nellis AFB;36.249167;-114.996111;10051;Nevada-US
+EGUN;Mildenhall AFB;52.365;0.480833;11226;UK
+EGHQ;St Mawgan;50.434722;-5.013056;8979;UK
+LSZM;Mollis;47.1;9.083333;6336;Switzerland
+KPHX;Phoenix Sky Harbor Intl;33.434167;-112.011667;7788;Arizona-US
+LIPA;Aviano;46.031389;12.596944;8542;Italy
+LOWI;Innsbruck;47.260278;11.343889;6552;Austria
