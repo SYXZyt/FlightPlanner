@@ -7,6 +7,7 @@ By default the program only includes a small selection of airports, but can edit
 | ICAO | Name | Latitude | Longitude | Shortest Runway (ft) | Location |
 | - | - | - | - | - | - |
 | KLAX | Los Angeles Intl | 33.9425 | -118.408056 | 8914 | California US |
+
 Note in `Airport.txt`, each airport data bit, must be terminated with a semi-colon.
 Using the example, this would be inputted into `Airport.txt`. `KLAX;Los Angeles Intl;33.9425;-118.408056;8914;California US`
 ## Loading custom planes
@@ -15,4 +16,5 @@ This time the format is:
 | Name | Model | Range (nm) | Endurance (hours) | Minimum Runway Length (ft) | Cruise Speed (kts) |
 |-|-|-|-|-|-|
 F-35 | b | 900 | 4 | 1000 | 451
+
 In the custom format, this would be `F-35;b;900;4;1000;451`.
