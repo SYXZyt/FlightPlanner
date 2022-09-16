@@ -40,12 +40,19 @@ namespace FlightPlanner.Paths
         /// <returns>Time in minutes</returns>
         public double EstimatedTime(Aircraft aircraft)
         {
-            double speedInKnotsPerMinute = aircraft.CruiseSpeed / 60.0;
             double dist = Distance();
 
-            //time = distance / speed
-            //Should be in minutes if my maths is correct
-            return dist / speedInKnotsPerMinute;
+            //If dist is too short, just assume we are traveling fast the entire time
+            if (dist <= GlobalData.AvgMilesLanding + GlobalData.AvgMilesTakeoff)
+            {
+                return dist / (aircraft.CruiseSpeed * 0.7d) / 60.0d;
+            }
+
+            double totalTime = 0.0d;
+            totalTime += (dist - (GlobalData.AvgMilesLanding + GlobalData.AvgMilesTakeoff)) / (aircraft.CruiseSpeed / 60.0d);
+            totalTime += GlobalData.AvgMilesLanding / (GlobalData.AvgSpeedLanding / 60.0d);
+            totalTime += GlobalData.AvgMilesTakeoff / (GlobalData.AvgSpeedTakeoff / 60.0d);
+            return totalTime;
         }
 
         public override string ToString() => $"{start} -> {end} ({Math.Round(Distance(), 2)}nm)";

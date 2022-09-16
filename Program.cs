@@ -40,6 +40,8 @@ namespace FlightPlanner
         {
             Console.WriteLine("Loading data...");
 
+            GlobalData.LoadFromConfig();
+
             //Check if our data files exist
             if (!File.Exists(PlaneDataFile) || !File.Exists(AirportDataFile))
             {
@@ -57,7 +59,7 @@ namespace FlightPlanner
             while (true)
             {
                 Path path = pathGenerator.GeneratePath();
-                Console.WriteLine($"I have generated {path} using {pathGenerator.SelectedAircraft} (Estimated {Math.Round(path.EstimatedTime(pathGenerator.SelectedAircraft), 2)} minutes (Full-AB))");
+                Console.WriteLine($"I have generated {path} using {pathGenerator.SelectedAircraft} (Estimated {Math.Round(path.EstimatedTime(pathGenerator.SelectedAircraft), 2)} minutes)");
                 Console.WriteLine("Press enter to generate a new path");
                 Console.ReadLine();
             }

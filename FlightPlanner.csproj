@@ -14,10 +14,14 @@
 
   <ItemGroup>
     <PackageReference Include="GeoCoordinate.NetStandard1" Version="1.0.1" />
+    <PackageReference Include="ini-parser" Version="2.5.2" />
   </ItemGroup>
 
   <ItemGroup>
     <None Update="Config\Airport.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Config\Config.ini">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Config\Plane.txt">
