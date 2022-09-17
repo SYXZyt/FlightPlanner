@@ -25,20 +25,11 @@ namespace FlightPlanner.Paths
         }
 
         /// <summary>
-        /// Get the distance of the shortest runway
-        /// </summary>
-        /// <returns>Length in feet</returns>
-        public int GetShortestRunway()
-        {
-            return Math.Min(start.ShortestRunwayLength, end.ShortestRunwayLength);
-        }
-
-        /// <summary>
         /// Calculate an estimated minimum time for the flight
         /// </summary>
         /// <param name="aircraft">The aircraft used for the flight</param>
         /// <returns>Time in minutes</returns>
-        public double EstimatedTime(Aircraft aircraft)
+        public double EstimatedTime(Model aircraft)
         {
             double dist = Distance();
 

@@ -1,7 +1,7 @@
 ﻿;Put all aircraft in here for the planner to recognise them 
-;Format is name - model - range - endurance - min runway length - cruise speed
+;Format is name - model - range - endurance - cruise speed
 ;Use semi-colon to separate each category
-F-35;b;900;4;1000;451
-F-35;c;1200;4;6000;451
-F-18;e;2165;5;3680;451
-F-14;b;2000;4;5000;482
+F-35;b;900;4;451
+F-35;c;1200;4;451
+F-18;e;2165;5;451
+F-14;b;2000;4;482

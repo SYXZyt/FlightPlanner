@@ -2,6 +2,9 @@
 {
     internal class Group<T> : IEnumerable<T>
     {
+        //I'll be honest. I've no idea why I created this List wrapper class. I don't remember why I wrote it
+        //Idk why I didn't just use a list. I assume for the random function, but I could have just written a list extension
+        //Past me is stupid >:(
         private readonly List<T> values;
 
         #region Enumerable Stuff
@@ -32,6 +35,12 @@
         {
             get => values[index];
             set => values[index] = value;
+        }
+
+        public T this[T index]
+        {
+            get => values[values.IndexOf(index)];
+            set => values[values.IndexOf(index)] = value;
         }
 
         public void Add(T value) => values.Add(value);

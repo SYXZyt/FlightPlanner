@@ -2,6 +2,13 @@
 {
     internal class MalformedEncoding : Exception
     {
-        public MalformedEncoding() : base() { }
+        protected string encoded;
+
+        public string Encoded => encoded;
+
+        public MalformedEncoding(string encoded) : base()
+        {
+            this.encoded = encoded;
+        }
     }
 }

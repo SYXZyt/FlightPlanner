@@ -9,7 +9,6 @@
         private readonly string name;
         private readonly double latitude;
         private readonly double longitude;
-        private readonly int shortestRunwayLength;
         private readonly string country;
 
         /// <summary>
@@ -26,16 +25,11 @@
         /// Latitude position
         /// </summary>
         public double Latitude => latitude;
-        
+
         /// <summary>
         /// Longitude position
         /// </summary>
         public double Longitude => longitude;
-
-        /// <summary>
-        /// The shortest runway length in feet
-        /// </summary>
-        public int ShortestRunwayLength => shortestRunwayLength;
 
         /// <summary>
         /// The state or country that the airport is in. For example <code>UK</code> or <code>Texas US</code>
@@ -76,13 +70,12 @@
             return ToString().GetHashCode();
         }
 
-        public Airport(string icao, string name, double latitude, double longitude, int shortestRunwayLength, string country)
+        public Airport(string icao, string name, double latitude, double longitude, string country)
         {
             this.icao = icao;
             this.name = name;
             this.latitude = latitude;
             this.longitude = longitude;
-            this.shortestRunwayLength = shortestRunwayLength;
             this.country = country;
         }
 
@@ -91,27 +84,26 @@
             string[] bits = encoded.Split(';');
 
             //Check if there are too many bits, or too few
-            if (bits.Length != 6) throw new MalformedEncoding();
+            if (bits.Length != 5)
+            {
+                //Check if the length is 7, and the last is empty, because there is likely a terminating semicolon that was placed by mistake
+                if (!(bits.Length == 6 && bits[^1] == "")) throw new MalformedEncoding(encoded);
+            }
 
             icao = bits[0];
             name = bits[1];
 
             if (!double.TryParse(bits[2], out latitude))
             {
-                throw new MalformedEncoding();
+                throw new MalformedEncoding(encoded);
             }
 
             if (!double.TryParse(bits[3], out longitude))
             {
-                throw new MalformedEncoding();
+                throw new MalformedEncoding(encoded);
             }
 
-            if (!int.TryParse(bits[4], out shortestRunwayLength))
-            {
-                throw new MalformedEncoding();
-            }
-
-            country = bits[5];
+            country = bits[4];
         }
     }
 }

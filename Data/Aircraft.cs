@@ -1,108 +1,165 @@
-﻿namespace FlightPlanner.Data
+﻿using System.Text;
+
+namespace FlightPlanner.Data
 {
-    /// <summary>
-    /// Class to represent an aeroplane
-    /// </summary>
-    internal sealed class Aircraft
+    internal class Aircraft : IEnumerable<Model>
     {
-        private readonly string name;
-        private readonly string model;
-        private readonly float range;
-        private readonly float endurance;
-        private readonly int reqRunway;
-        private readonly float cruiseSpeed;
+        #region Enumerable Stuff
+        private IEnumerable<Model> GetValues()
+        {
+            foreach (Model m in models)
+            {
+                yield return m;
+            }
+        }
 
-        /// <summary>
-        /// How many nautical miles this plane can fly
-        /// </summary>
-        public float Range => range;
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
 
-        /// <summary>
-        /// How many hours this plane can fly (currently unused)
-        /// </summary>
-        public float Endurance => endurance;
+        public IEnumerator<Model> GetEnumerator()
+        {
+            return GetValues().GetEnumerator();
+        }
+        #endregion
 
-        /// <summary>
-        /// This name of this plane. For example <code>F-35</code>
-        /// </summary>
+        private readonly List<Model> models;
+
+        private string name;
+
         public string Name => name;
 
-        /// <summary>
-        /// This is the model of the specific plane. For example <code>B</code>
-        /// </summary>
-        public string Model => model;
-
-        /// <summary>
-        /// How many feet of runway required to operate this plane
-        /// </summary>
-        public int RequiredRunwayLength => reqRunway;
-
-        /// <summary>
-        /// How many knots this plane can cruise at
-        /// </summary>
-        public float CruiseSpeed => cruiseSpeed;
+        public Model PickModel(Random rng) => rng.Choice(models);
 
         public override string ToString()
         {
-            return $"{name}{model}";
-        }
+            StringBuilder builder = new();
+            builder.Append(name);
 
-        /// <summary>
-        /// Generate a group of planes, using an array of encoded plane data
-        /// </summary>
-        /// <param name="encodedPlanes">All of the encoded data</param>
-        /// <returns>The generated planes</returns>
-        public static Group<Aircraft> CreateMultipleAircraft(string[] encodedPlanes)
-        {
-            List<Aircraft> planes = new();
-
-            foreach (string s in encodedPlanes)
+            foreach (Model m in this)
             {
-                planes.Add(new Aircraft(s));
+                builder.Append(m.ToString());
+                builder.Append('/');
             }
 
-            return new(planes);
+            return builder.ToString();
         }
 
-        public Aircraft(string name, string model, float range, float endurance, int reqRunway, float cruiseSpeed)
+        public override bool Equals(object obj)
         {
-            this.name = name;
-            this.model = model;
-            this.range = range;
-            this.endurance = endurance;
-            this.reqRunway = reqRunway;
-            this.cruiseSpeed = cruiseSpeed;
+            if (obj is null) return false;
+            if (obj is not Aircraft) return false;
+            Aircraft other = obj as Aircraft;
+
+            return GetHashCode() == other.GetHashCode();
+        }
+
+        public override int GetHashCode() => name.GetHashCode();
+
+        public static bool operator ==(Aircraft a, Aircraft b) => a.Equals(b);
+        public static bool operator !=(Aircraft a, Aircraft b) => !a.Equals(b);
+
+        public static implicit operator Aircraft(string s)
+        {
+            Aircraft a = new()
+            {
+                name = s
+            };
+
+            return a;
+        }
+
+        public static Group<Aircraft> CreateMultipleAircraft(string[] planeData)
+        {
+            Group<Aircraft> aircraft = new();
+
+            foreach (string plane in planeData)
+            {
+                //Check if this plane is already existing, and if it is, we can just add a new model
+                //If not, create a new plane
+                if (aircraft.Contains(CheckPlaneName(plane)))
+                {
+                    aircraft[CheckPlaneName(plane)].AddModel(GenerateModel(plane));
+                }
+                else
+                {
+                    aircraft.Add(new(plane));
+                }
+            }
+
+            return aircraft;
+        }
+
+        public static string CheckPlaneName(string encoded)
+        {
+            string[] bits = encoded.Split(';');
+
+            if (bits.Length != 5)
+            {
+                //Check if the length is 7, and the last is empty, because there is likely a terminating semicolon that was placed by mistake
+                if (!(bits.Length == 6 && bits[^1] == "")) throw new MalformedEncoding(encoded);
+            }
+
+            return bits[0];
+        }
+
+        public void AddModel(Model model) => models.Add(model);
+
+        public static Model GenerateModel(string encoded)
+        {
+            string[] bits = encoded.Split(';');
+
+            //Check for the correct amount of bits
+            if (bits.Length != 5)
+            {
+                //Check if the length is 7, and the last is empty, because there is likely a terminating semicolon that was placed by mistake
+                if (!(bits.Length == 6 && bits[^1] == "")) throw new MalformedEncoding(encoded);
+            }
+
+            string name = bits[1];
+
+            if (!float.TryParse(bits[2], out float range))
+            {
+                throw new MalformedEncoding(encoded);
+            }
+
+            if (!float.TryParse(bits[3], out float endurance))
+            {
+                throw new MalformedEncoding(encoded);
+            }
+
+            if (!float.TryParse(bits[4], out float cruiseSpeed))
+            {
+                throw new MalformedEncoding(encoded);
+            }
+
+            return new(name, range, endurance, cruiseSpeed);
+        }
+
+        private Aircraft()
+        {
+            models = new();
+            name = string.Empty;
         }
 
         public Aircraft(string encoded)
         {
+            models = new();
+
             string[] bits = encoded.Split(';');
 
-            //Check if there are too many bits, or too few
-            if (bits.Length != 6) throw new MalformedEncoding();
+            //Check for the correct amount of bits
+            if (bits.Length != 5)
+            {
+                //Check if the length is 7, and the last is empty, because there is likely a terminating semicolon that was placed by mistake
+                if (!(bits.Length == 6 && bits[^1] == "")) throw new MalformedEncoding(encoded);
+            }
 
             name = bits[0];
-            model = bits[1];
-            
-            if (!float.TryParse(bits[2], out range))
-            {
-                throw new MalformedEncoding();
-            }
 
-            if (!float.TryParse(bits[3], out endurance))
-            {
-                throw new MalformedEncoding();
-            }
-
-            if (!int.TryParse(bits[4], out reqRunway))
-            {
-                throw new MalformedEncoding();
-            }
-
-            if (!float.TryParse(bits[5], out cruiseSpeed))
-            {
-                throw new MalformedEncoding();
-            }
+            Model model = GenerateModel(encoded);
+            models.Add(model);
         }
     }
 }

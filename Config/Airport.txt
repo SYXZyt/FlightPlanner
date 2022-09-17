@@ -1,11 +1,74 @@
 ﻿;Put all airport data in here for the planner to recognise them
-;Format is ICAO - name - Latitude - Longitude - Shortest Runway Length - Country
+;Format is ICAO - name - Latitude - Longitude - Country
 ;Use semi-colon to separate each category
-KXTA;Homey (Area 51);37.233333;-115.808333;11938;Nevada-US
-KLSV;Nellis AFB;36.249167;-114.996111;10051;Nevada-US
-EGUN;Mildenhall AFB;52.365;0.480833;11226;UK
-EGHQ;St Mawgan;50.434722;-5.013056;8979;UK
-LSZM;Mollis;47.1;9.083333;6336;Switzerland
-KPHX;Phoenix Sky Harbor Intl;33.434167;-112.011667;7788;Arizona-US
-LIPA;Aviano;46.031389;12.596944;8542;Italy
-LOWI;Innsbruck;47.260278;11.343889;6552;Austria
+KXTA;Homey (Area 51);37.233333;-115.808333;Nevada-US
+KLSV;Nellis AFB;36.249167;-114.996111;Nevada-US
+EGUN;Mildenhall AFB;52.365;0.480833;UK
+EGHQ;St Mawgan;50.434722;-5.013056;UK
+LSZM;Mollis;47.1;9.083333;Switzerland
+KPHX;Phoenix Sky Harbor Intl;33.434167;-112.011667;Arizona-US
+LIPA;Aviano;46.031389;12.596944;Italy
+LOWI;Innsbruck;47.260278;11.343889;Austria
+KATL;Atlanta Intl;33.636667;-84.428056;Georgia-US
+KDFW;Dallas Fort Worth;32.896944;-97.038056;Texas-US
+KDEN;Denver Intl;39.861667;-104.673056;Colorado-US
+KASE;Aspen/Pitkin County Airport;39.223056;-106.868889;Colorado-US
+KORD;O'Hare Intl;41.978611;-87.90472;Illinois-US
+KLAX;Los Angeles Intl;33.9425;-118.408056;California US
+KCLT;Charlotte Douglas Intl;35.213889;-80.943056;North Carolina-US
+KMCO;Orlando Intl;28.429444;-81.308889;Florida-US
+KLAS;Harry Reid (prev McCarren) Intl;36.08;-115.152222;Nevada-US
+KMIA;Miami Intl;25.793333;-80.290556;Florida-US
+KSEA;Seattle Tacoma;47.448889;-122.309444;Washington-US
+KIAH;George Bush Intl;29.984444;-95.341389;Texas-US
+KJFK;John F. Kennedy Intl;40.639722;-73.778889;New York-US
+KEWR;Newark Liberty Intl;40.6925;-74.168611;New Jersey-US
+KFLL;Fort Lauderdale-Hollywood Intl;26.0725;-80.152778;Florida-US
+KMSP;Minneapolis-Saint Paul Intl;44.881944;93.221667;Minnesota-US
+KSFO;San Francisco Intl;37.618889;-122.375;California-US
+KDTW;Detroit Metropolitan Airport;42.2125;-83.353333;Michigan-US
+KBOS;Logan Intl;42.363056;-71.006389;Massachusetts-US
+KSLC;Salt Lake City Intl;40.788333;-111.977778;Utah-US
+KPHL;Philadelphia Intl;39.871944;-75.241111;Pennsylvania-US
+KBWI;Baltimore/Washington Intl;39.175278;-76.668333;Pennsylvania-US
+KTPA;Tampa Intl;27.979722;-82.534722;Florida-US
+KSAN;San Diego Intl;32.733611;-117.189722;California-US
+KEDW;Edwards AFB;34.905556;-117.883611;California-US
+KLGA;LaGuardia;40.775;-73.875;New York-US
+KMDW;Midway Intl;41.786111;-87.7525;Illinois-US
+KBNA;Nashville Intl;36.126667;-86.681944;Tennessee-US
+KIAD;Dulles Intl;38.944444;77.455833;Virginia-US
+KDAL;Dallas Love Field;32.847222;-96.851667;Texas-US
+KDCA;Ronald Reagan Washington National;38.852222;-77.037778;Virginia-US;
+KPDX;Portland Intl;45.588611;-122.5975;Oregon-US
+KAUS;Austin-Bergstrom Intl;30.194444;-97.67;Texas-US
+KHOU;William P. Hobby;29.645556;-95.278889;Texas-US
+KSTL;St. Louis Lambert Intl;38.747222;-90.361389;Missouri-US
+KRSW;Southwest Florida Intl;26.536111;-81.755278;Florida-US
+KSMF;Sacramento Intl;38.6954444;-121.5907778;California-US
+KMYS;Louis Armstrong New Orleans Intl;29.993333;-90.258056;Louisiana-US
+TJSJ;Luis Muñoz Marín Intl;18.439167;66.001944;Puerto Rico
+KRDU;Raleigh-Durham Intl;35.877778;-78.7875;North Carolina-US
+KSJC;San Jose Intl;37.362778;-121.929167;California-US
+KOAK;Oakland Intl;37.721389;-122.220833;California-US
+KMCI;Kansas City Intl;39.2975;-94.713889;Missouri-US
+KCLE;Cleveland Hopkins Intl;41.411667;-81.849722;Ohio-US
+KIND;Indianapolis Intl;39.717222;-86.294444;Indiana-US
+KSAT;San Antonio Intl;29.526667;-98.471944;Texas-US
+KSNA;John Wayne Airport;33.675556;-117.868333;California-US
+KPIT;Pittsburgh Intl;40.496;-80.246;Pennsylvania-US
+KCVG;Cincinnati/Northern Kentucky Intl;39.048889;-84.667778;Kentucky-US
+KMCH;John Glenn Columbus Intl;39.998056;-82.891944;Ohio-US
+KPBI;Palm Beach Intl;26.683056;-80.095556;Florida-US
+KJAX;Jacksonville Intl;30.494167;-81.687778;Florida-US
+KMKE;Milwaukee Mitchell Intl;42.947222;-87.896667;Wisconsin-US
+KONT;Ontario Intl;34.056111;-117.601111;Canada
+KANC;Ted Stevens Anchorage Intl;61.174167;-149.998333;Alaska-US
+KBDL;Bradley Intl;41.939167;-72.683333;Connecticut-US
+KBUR;Hollywood Burbank Airport;34.200556;-118.358611;California-US
+KOMA;Eppley Airfield;41.3;-95.895;Nebraska-US
+KMEM;Memphis Intl;35.0425;-89.976667;Tennessee-US
+KBOI;Boise Airport;43.564444;-116.222778;Idaho-US
+KRNO;Reno-Tahoe Intl;39.499167;-119.768056;Nevada-US
+KCHS;Charleston AFB;32.898611;-80.040556;South Carolina-US
+KOKC;Will Rogers World Airport;35.393056;-97.600833;Oklahoma-US

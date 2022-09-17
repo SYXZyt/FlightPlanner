@@ -48,18 +48,31 @@ namespace FlightPlanner
                 throw new FileNotFoundException("Configuration file not found", $"{PlaneDataFile} or {AirportDataFile}");
             }
 
-            string[] planeData = ReadEncodedData(PlaneDataFile);
-            aircraft = Aircraft.CreateMultipleAircraft(planeData);
+            try
+            {
+                string[] planeData = ReadEncodedData(PlaneDataFile);
+                aircraft = Aircraft.CreateMultipleAircraft(planeData);
 
-            string[] airportData = ReadEncodedData(AirportDataFile);
-            airports = Airport.CreateMultipleAirports(airportData);
-
+                string[] airportData = ReadEncodedData(AirportDataFile);
+                airports = Airport.CreateMultipleAirports(airportData);
+            }
+            catch (MalformedEncoding e)
+            {
+                //If we get a malformed data error, we can display where the error was
+                Console.WriteLine($"{e.Message}\b at `{e.Encoded}`");
+                return;
+            }
+            catch
+            {
+                //If we got any other error type, just throw it
+                throw;
+            }
             PathGenerator pathGenerator = new(aircraft, airports);
             
             while (true)
             {
                 Path path = pathGenerator.GeneratePath();
-                Console.WriteLine($"I have generated {path} using {pathGenerator.SelectedAircraft} (Estimated {Math.Round(path.EstimatedTime(pathGenerator.SelectedAircraft), 2)} minutes)");
+                Console.WriteLine($"I have generated {path} using {pathGenerator.SelectedAircraft.Name}/{pathGenerator.SelectedModel} (Estimated {Math.Round(path.EstimatedTime(pathGenerator.SelectedModel), 2)} minutes)");
                 Console.WriteLine("Press enter to generate a new path");
                 Console.ReadLine();
             }

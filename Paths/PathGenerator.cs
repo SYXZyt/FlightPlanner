@@ -11,18 +11,22 @@ namespace FlightPlanner.Paths
         private readonly Group<Airport> airports;
         private readonly Random rng;
         private Aircraft selectedAircraft;
+        private Model selectedModel;
 
         /// <summary>
-        /// Get the <see cref="FlightPlanner.Data.Aircraft"/> to be used in the flight
+        /// Get the <see cref="FlightPlanner.Data.Model"/> to be used in the flight
         /// </summary>
         public Aircraft SelectedAircraft => selectedAircraft;
 
+        public Model SelectedModel => selectedModel;
+
         /// <summary>
-        /// Pick a random <see cref="FlightPlanner.Data.Aircraft"/> to use
+        /// Pick a random <see cref="FlightPlanner.Data.Model"/> to use
         /// </summary>
         private void GetAircraft()
         {
             selectedAircraft = rng.Choice(aircraft);
+            selectedModel = selectedAircraft.PickModel(rng);
         }
 
         /// <summary>
@@ -37,7 +41,7 @@ namespace FlightPlanner.Paths
             {
                 if (a == departure) continue;
 
-                if (new Path(departure, a).Distance() <= selectedAircraft.Range) return true; //As long as one airport is in range, we can mark it as valid
+                if (new Path(departure, a).Distance() <= selectedModel.Range) return true; //As long as one airport is in range, we can mark it as valid
             }
 
             return false;
@@ -74,16 +78,9 @@ namespace FlightPlanner.Paths
                 //Now we have two airports, we need to check if the selected plane is actually capable of the flight
                 selectedPath = new(startAirport, endAirport);
 
-                if (selectedPath.Distance() > selectedAircraft.Range)
+                if (selectedPath.Distance() > selectedModel.Range)
                 {
                     //If the plane cannot make this path, reselect
-                    continue;
-                }
-
-
-                if (selectedPath.GetShortestRunway() < selectedAircraft.RequiredRunwayLength)
-                {
-                    //If the shortest runway is too short, we can use one of these airports
                     continue;
                 }
 
